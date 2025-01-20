@@ -17,11 +17,13 @@ int main(void) {
 
     fits_file.readHeader();
 
+    size_t i = 0;
     for (auto k : fits_file.headers.at(0)) {
-        std::cout << &k << "    " <<  sizeof(k) << "    " <<  k.second.keyword << "   " << k.second.value << std::endl; 
+        std::cout << &k << "    " << &(fits_file.headers.at(0).data()[i]) << "    " <<  k.second.keyword << "   " << k.second.value << std::endl;
+        ++i;
     }
 
-    std::cout <<  << std::endl;
+    std::cout << "" << std::endl;
 
     fits_file.close();
 

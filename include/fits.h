@@ -11,10 +11,14 @@
 #include "unsorted_map.hpp"
 
 class Fits : private std::fstream {
-    private:        
-        void getHeaderBlockPosition();
-
     public:
+        using std::fstream::close;
+        using std::fstream::is_open;
+        using std::fstream::seekg;
+        using std::fstream::tellg;
+        using std::fstream::read;
+        using std::fstream::clear;
+
         int size;
         int nblocks;
 
@@ -33,12 +37,8 @@ class Fits : private std::fstream {
         void readHeader();
         void readHeader(int n);
 
-        using std::fstream::close;
-        using std::fstream::is_open;
-        using std::fstream::seekg;
-        using std::fstream::tellg;
-        using std::fstream::read;
-        using std::fstream::clear;
+    private:        
+        void getHeaderBlockPosition();        
 };
 
 #endif
