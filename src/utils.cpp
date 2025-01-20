@@ -1,11 +1,11 @@
 #include "utils.h"
 
-std::string trimLeadingSpaces(const std::string str) {
+std::string trim_leading_spcs(const std::string str) {
     int pos = str.find_first_not_of(' ');
     return str.substr(pos);
 }
 
-std::string trimTrailingSpaces(const std::string str) {
+std::string trim_trailing_spcs(const std::string str) {
     int pos = str.find_last_not_of(' ');
     if (pos == std::string::npos)
         return str;
@@ -13,7 +13,7 @@ std::string trimTrailingSpaces(const std::string str) {
         return str.substr(0, pos + 1);
 }
 
-std::string trimSpaces(const std::string str) {
+std::string trim_spcs(const std::string str) {
     if (str != "") {
         int startPos = str.find_first_not_of(' ');
         int endPos = str.find_last_not_of(' ');

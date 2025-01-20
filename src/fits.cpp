@@ -4,56 +4,56 @@
 #include <iostream>
 
 Fits::Fits(const char* filename, ios_base::openmode mode) : std::fstream(filename, mode) {
-    getHeaderBlockPosition();
+    get_header_block_pos();
 }
 
 Fits::Fits(const std::string& filename, ios_base::openmode mode) : std::fstream(filename, mode) {
-    getHeaderBlockPosition();
+    get_header_block_pos();
 }
 
-void Fits::readBlock(char* buffer, const int n) {
+void Fits::read_block(char* buffer, const int n) {
     int counter = 0;
 
-    this->clear();
-    this->seekg(0, std::ios::beg);
+    clear();
+    seekg(0, std::ios::beg);
 
     do {
-        this->read(buffer, BLOCK_SIZE);
+        read(buffer, BLOCK_SIZE);
         counter++;
     } while (n >= counter);
 }
 
-void Fits::readBlock(char* buffer, const int from, const int to) {
+void Fits::read_block(char* buffer, const int from, const int to) {
     int counter = 0;
 
-    this->clear();
-    this->seekg(0, std::ios::beg);
+    clear();
+    seekg(0, std::ios::beg);
     int bytesToRead = (to - from + 1) * BLOCK_SIZE;
     char* tmp;
 
     // go to first block beginning
-    this->read(tmp, from * BLOCK_SIZE);
+    read(tmp, from * BLOCK_SIZE);
     
     // read the blocks
-    if (to < this->nblocks)
-        this->read(buffer, bytesToRead);
+    if (to < nblocks)
+        read(buffer, bytesToRead);
     else
-        this->read(buffer, (nblocks - from) * BLOCK_SIZE);
+        read(buffer, (nblocks - from) * BLOCK_SIZE);
 }
 
-void Fits::readHeader() {
-    for (int i = 0; i < this->headerStartBlock.size(); i++) {
-        this->readHeader(i);
+void Fits::read_header() {
+    for (int i = 0; i < header_start_block.size(); i++) {
+        read_header(i);
     }
 }
 
-void Fits::readHeader(int n) {
-    int startBlock = this->headerStartBlock[n];
-    int endBlock = this->headerEndBlock[n];
+void Fits::read_header(int n) {
+    int startBlock = header_start_block[n];
+    int endBlock = header_end_block[n];
     int bytesToRead = (endBlock - startBlock + 1) * BLOCK_SIZE;
 
     char *blocks = new char[bytesToRead];
-    this->readBlock(blocks, startBlock, endBlock);
+    read_block(blocks, startBlock, endBlock);
 
     unsorted_map<std::string, Keyword> keywords;
     int counter = 0;
@@ -61,7 +61,7 @@ void Fits::readHeader(int n) {
         char (&view)[HEADER_LINE_SIZE] = (char (&)[HEADER_LINE_SIZE])(*(blocks + i));
         std::string line(view, HEADER_LINE_SIZE);
         
-        if (trimSpaces(line) == "")
+        if (trim_spcs(line) == "")
             continue;
 
         Keyword k(line);
@@ -69,40 +69,40 @@ void Fits::readHeader(int n) {
         counter++;
     }
 
-    this->headers.insert({n, keywords});
+    headers.insert({n, keywords});
 
     delete [] blocks;
 }
 
-void Fits::getHeaderBlockPosition() {
+void Fits::get_header_block_pos() {
     int counter = 0;
     char buffer[BLOCK_SIZE];
     // char (&view)[8] = (char (&)[8])(*(buffer + 0));
 
-    this->clear();
-    this->seekg(0, std::ios::beg);
+    clear();
+    seekg(0, std::ios::beg);
 
     do {
-        this->read(buffer, BLOCK_SIZE);
+        read(buffer, BLOCK_SIZE);
         std::string str(buffer);
         if ((str.rfind("SIMPLE", 0) == 0) | (str.rfind("XTENSION", 0) == 0)) {
-            this->headerStartBlock.push_back(counter);
+            header_start_block.push_back(counter);
             if (counter != 0)
-                this->dataEndBlock.push_back(counter - 1);
+                data_end_block.push_back(counter - 1);
         }
         counter++;
 
         if (str.rfind("END     ") != std::string::npos) {
-            this->dataStartBlock.push_back(counter);
-            this->headerEndBlock.push_back(counter - 1);
+            data_start_block.push_back(counter);
+            header_end_block.push_back(counter - 1);
         }
-    } while (!this->eof());
-    this->dataEndBlock.push_back(counter - 2);
+    } while (!eof());
+    data_end_block.push_back(counter - 2);
 
-    this->clear();
-    this->size = this->tellg();
-    this->nblocks = this->size / BLOCK_SIZE;
-    this->seekg(0, std::ios::beg);
+    clear();
+    size = tellg();
+    nblocks = size / BLOCK_SIZE;
+    seekg(0, std::ios::beg);
 }
 
 

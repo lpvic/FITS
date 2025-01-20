@@ -3,8 +3,8 @@
 
 #include <string>
 
-std::string trimLeadingSpaces(const std::string str);
-std::string trimTrailingSpaces(const std::string str);
-std::string trimSpaces(const std::string str);
+std::string trim_leading_spcs(const std::string str);
+std::string trim_trailing_spcs(const std::string str);
+std::string trim_spcs(const std::string str);
 
 #endif

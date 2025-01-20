@@ -7,7 +7,7 @@
 class Keyword {      
     public:
         std::string keyword;
-        std::string value;       
+        std::string str_value;
         std::string comment;        
 
         Keyword() {};

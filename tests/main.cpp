@@ -15,7 +15,7 @@ int main(void) {
         return -15;
     }
 
-    fits_file.readHeader();
+    fits_file.read_header();
 
     size_t i = 0;
     for (auto k : fits_file.headers.at(0)) {

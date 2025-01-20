@@ -6,10 +6,10 @@
 Keyword::Keyword(const std::string line) {
     int commentStart;
     int slash = 1;
-    keyword = trimSpaces(line.substr(0, 8));
+    keyword = trim_spcs(line.substr(0, 8));
 
     if (keyword == "END") {
-        value = "";
+        str_value = "";
         comment = "";
     }
     else {
@@ -22,12 +22,17 @@ Keyword::Keyword(const std::string line) {
             slash = 0;
         }
 
-        value = line.substr(KEYWORD_SIZE, HEADER_LINE_SIZE - comment.size() - KEYWORD_SIZE - slash);
-        if (value[0] == '=') {
-            value = value.substr(2);
+        str_value = line.substr(KEYWORD_SIZE, HEADER_LINE_SIZE - comment.size() - KEYWORD_SIZE - slash);
+        if (str_value[0] == '=') {
+            str_value = str_value.substr(2);
         }
 
-        comment = trimSpaces(comment);
-        value = trimSpaces(value);
+        comment = trim_spcs(comment);
+        str_value = trim_spcs(str_value);
+
+        if ((keyword == "COMMENT") || (keyword == "HISTORY")) {
+            comment = str_value;
+            str_value = "";
+        }
     }
 }

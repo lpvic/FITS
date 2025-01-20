@@ -22,23 +22,27 @@ class Fits : private std::fstream {
         int size;
         int nblocks;
 
-        std::vector<int> headerStartBlock;
-        std::vector<int> dataStartBlock;
-        std::vector<int> headerEndBlock;
-        std::vector<int> dataEndBlock;
+        std::vector<int> header_start_block;
+        std::vector<int> data_start_block;
+        std::vector<int> header_end_block;
+        std::vector<int> data_end_block;
+
+        std::vector<std::pair<size_t, size_t>> header_blocks_pos;
+        std::vector<std::pair<size_t, size_t>> data_blocks_pos;
+
 
         std::map<int, unsorted_map<std::string, Keyword>> headers;
   
         explicit Fits(const char* filename, ios_base::openmode mode = ios_base::in | ios_base::out | ios_base::binary);
         explicit Fits(const std::string& filename, ios_base::openmode mode = ios_base::in | ios_base::out | ios_base::binary);
 
-        void readBlock(char* buffer, const int n = 0);
-        void readBlock(char* buffer, const int from, const int to);
-        void readHeader();
-        void readHeader(int n);
+        void read_block(char* buffer, const int n = 0);
+        void read_block(char* buffer, const int from, const int to);
+        void read_header();
+        void read_header(int n);
 
     private:        
-        void getHeaderBlockPosition();        
+        void get_header_block_pos();        
 };
 
 #endif
