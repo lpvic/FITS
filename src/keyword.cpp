@@ -36,3 +36,18 @@ Keyword::Keyword(const std::string line) {
         }
     }
 }
+
+std::ostream& operator<<(std::ostream& os, const Keyword& keyw) {
+    os << std::setw(8) << std::left << keyw.keyword << " ";
+    if ((keyw.str_value != "") && (keyw.comment != "")) {
+        os << keyw.str_value << " / " << keyw.comment;
+    }
+    else if (keyw.comment != "") {
+        os << keyw.comment;
+    }
+    else {
+        os << keyw.str_value;
+    }
+
+    return os;
+}

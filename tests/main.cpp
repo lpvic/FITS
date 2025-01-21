@@ -19,7 +19,7 @@ int main(void) {
 
     size_t i = 0;
     for (auto k : fits_file.headers.at(0)) {
-        std::cout << &k << "    " << &(fits_file.headers.at(0).data()[i]) << "    " <<  k.second.keyword << "   " << k.second.value << std::endl;
+        std::cout << &k << "    " << &(fits_file.headers.at(0).data()[i]) << "    " << k.second << std::endl;
         ++i;
     }
 
@@ -27,6 +27,11 @@ int main(void) {
 
     fits_file.close();
 
+    std::cout << fits_file.size << std::endl;
+    std::cout << fits_file.nblocks << std::endl;
+
     std::cout << "end" << std::endl;
+
+
     return 0;
 }
