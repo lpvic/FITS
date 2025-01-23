@@ -2,21 +2,25 @@
 #define __KEYWORD_H__
 
 #include "constants.h"
+
 #include <string>
 #include <iostream>
 #include <iomanip>
 
-class Keyword {      
-    public:
-        std::string keyword;
-        std::string str_value;
-        std::string comment;        
+namespace fits {
 
-        Keyword() {};
-        Keyword(const std::string line);
-        Keyword(const char* buffer) : Keyword(std::string(buffer, HEADER_LINE_SIZE)) {};
+    class Keyword {      
+        public:
+            std::string keyword;
+            std::string str_value;
+            std::string comment;        
 
-        friend std::ostream& operator<<(std::ostream& os, const Keyword& keyw);
-};
+            Keyword() {};
+            Keyword(const std::string line);
+            Keyword(const char* buffer) : Keyword(std::string(buffer, HEADER_LINE_SIZE)) {};
+
+            friend std::ostream& operator<<(std::ostream& os, const Keyword& keyw);
+    };
+}
 
 #endif
