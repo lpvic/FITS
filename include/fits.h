@@ -7,18 +7,27 @@
 #include "unsorted_map.hpp"
 
 #include <fstream>
+#include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
+#include <string_view>
 
 namespace fits {
     
     class Fits {
         public:
-            Fits();
-            Fits(std::string filename_);
+            Fits(std::string filename) { read(filename); }
 
-            void read(std::string filename);
+            bool read(std::string filename);
             void write(std::string filename);
+
+        private:
+            size_type size_ = npos;
+            size_type nblocks_ = npos;
+            std::vector<std::unique_ptr<byte[]>> blocks_;
+
+            bool has_correct_size(size_type s_) { return !(s_ % BLOCK_SIZE); }
     };
 }
 
