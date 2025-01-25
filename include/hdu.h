@@ -11,7 +11,7 @@ namespace fits {
     
     class Hdu {
         public:
-            std::vector<unsorted_map<std::string, Keyword>> header;
+            std::vector<com::unsorted_map<std::string, Keyword>> header;
             char* data;
             std::vector<int> naxis;
             int bitpix;
