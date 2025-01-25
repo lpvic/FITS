@@ -27,7 +27,8 @@ namespace fits {
 //        private:
             size_type size_ = npos;
             size_type nblocks_ = npos;
-            std::vector<std::pair<size_type, size_type>> hdu_index;
+            std::vector<size_type> hdu_index;
+            std::vector<std::pair<size_type, size_type>> header_index;
             std::vector<block_type> blocks_;
 
             bool has_correct_size(size_type s_) { return !(s_ % BLOCK_SIZE); }
