@@ -3,8 +3,9 @@
 namespace fits {
 
     bool Fits::read(std::string filename) {
-        std::vector<int> hdu_begin;
-        byte buffer[BLOCK_SIZE];
+        size_type hdu_begin = 0;
+        byte_type buffer[BLOCK_SIZE];
+        size_type counter = 0;
         std::fstream file(filename, std::ios_base::in | std::ios_base::binary | std::ios_base::ate);
 
         if (!file.is_open()) {
@@ -19,26 +20,21 @@ namespace fits {
         }
         nblocks_ = size_ / BLOCK_SIZE;
         
+        file.clear();
         file.seekg(0, std::ios_base::beg);
-        std::cout << "start pos: " << file.tellg() << std::endl;
-        int c = 0;
-        do {
-            file.read(buffer, BLOCK_SIZE);
-            std::unique_ptr<byte[]> block = std::make_unique<byte[]>(BLOCK_SIZE);
-            std::copy(buffer, buffer + BLOCK_SIZE, block.get());
 
-            if ((std::string_view(block.get(), 6) == "SIMPLE") || (std::string_view(block.get(), 8) == "XTENSION")) {
-                hdu_begin.push_back(c);
+        while ((file.read(buffer, BLOCK_SIZE)) || (file.gcount() > 0)) {
+            blocks_.emplace_back(buffer, buffer + file.gcount());
+
+            if ((std::string_view(blocks_.back().data(), 6) == "SIMPLE") || (std::string_view(blocks_.back().data(), 8) == "XTENSION")) {
+                hdu_begin = counter;
             }
 
-            if (std::string_view(block.get(), BLOCK_SIZE).find("END     ") != std::string_view::npos) {
-                std::cout << "END encontrado en bloque: " << c << std::endl;
+            if (std::string_view(blocks_.back().data(), BLOCK_SIZE).find("END     ") != std::string_view::npos) {
+                hdu_index.push_back(std::make_pair<>(hdu_begin, counter));
             }
-
-            blocks_.push_back(std::move(block));            
-            c++;
-        } 
-        while(!file.eof());
+            ++counter;
+        }
 
         file.close();
 

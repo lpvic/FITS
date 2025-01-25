@@ -20,12 +20,15 @@ namespace fits {
             Fits(std::string filename) { read(filename); }
 
             bool read(std::string filename);
-            void write(std::string filename);
+            bool write(std::string filename);
+            size_type size() { return size_; }
+            size_type nblocks() { return nblocks_; }
 
-        private:
+//        private:
             size_type size_ = npos;
             size_type nblocks_ = npos;
-            std::vector<std::unique_ptr<byte[]>> blocks_;
+            std::vector<std::pair<size_type, size_type>> hdu_index;
+            std::vector<block_type> blocks_;
 
             bool has_correct_size(size_type s_) { return !(s_ % BLOCK_SIZE); }
     };
