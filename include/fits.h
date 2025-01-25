@@ -19,22 +19,18 @@ namespace fits {
     
     class Fits {
         public:
-            std::vector<size_type> hdu_index;
-            std::vector<std::pair<size_type, size_type>> header_index;
-
             Fits(std::string filename) { read(filename); }
 
             bool read(std::string filename);
             bool write(std::string filename);
             size_type size() { return size_; }
             size_type nblocks() { return nblocks_; }
-            std::vector<block_type> blocks() { return blocks_; }
-            std::vector<block_type> get_hdu(size_type n) { return blocks_; }
+            Hdu& get_hdu(size_type n) { return hdus_[n]; }
 
         private:
             size_type size_ = npos;
-            size_type nblocks_ = npos;            
-            std::vector<block_type> blocks_;
+            size_type nblocks_ = npos;
+            std::vector<Hdu> hdus_;
     };
 }
 

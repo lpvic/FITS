@@ -7,15 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(include ../unsorted_map/include)
 
-add_library(fits STATIC ./src/fits.cpp)
+add_library(fits STATIC ./src/fits.cpp ./src/keyword.cpp ./src/header.cpp ./src/hdu.cpp)
 set_target_properties(fits PROPERTIES 
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/fits/lib"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/fits/lib"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/fits/bin"
-)
-
-add_library(keyword STATIC ./src/keyword.cpp)
-set_target_properties(keyword PROPERTIES 
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/fits/lib"
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/fits/lib"
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/fits/bin"
@@ -34,4 +27,4 @@ set_target_properties(test PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/fits/lib"
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/fits/bin"
 )
-target_link_libraries(test fits keyword utils)
+target_link_libraries(test fits utils)

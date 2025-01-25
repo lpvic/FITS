@@ -4,6 +4,7 @@
 namespace fits {
     class Data : public std::vector<byte_type> {
         public:
+            Data() {};
             Data(const std::vector<block_type>& blocks);
     };
 }

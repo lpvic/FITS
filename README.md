@@ -5,7 +5,6 @@ config:
   elk:
     mergeEdges: true
     nodePlacementStrategy: LINEAR_SEGMENTS
-
 ---
 classDiagram
 class Fits {
