@@ -3,6 +3,7 @@
 
 #include "definitions.h"
 #include "keyword.h"
+#include "hdu.h"
 #include "unsorted_map.hpp"
 
 #include <fstream>

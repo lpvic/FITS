@@ -2,6 +2,7 @@
 #define __KEYWORD_H__
 
 #include "definitions.h"
+#include "utils.h"
 
 #include <string>
 #include <iostream>

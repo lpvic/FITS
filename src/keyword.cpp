@@ -1,7 +1,5 @@
 #include "keyword.h"
 
-#include "utils.h"
-
 namespace fits {
 
     Keyword::Keyword(const std::string line) {

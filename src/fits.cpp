@@ -1,5 +1,4 @@
 #include "fits.h"
-#include "hdu.h"
 
 namespace fits {
 
