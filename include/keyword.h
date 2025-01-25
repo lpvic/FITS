@@ -1,7 +1,7 @@
 #ifndef __KEYWORD_H__
 #define __KEYWORD_H__
 
-#include "constants.h"
+#include "definitions.h"
 
 #include <string>
 #include <iostream>

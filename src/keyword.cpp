@@ -1,7 +1,6 @@
 #include "keyword.h"
 
 #include "utils.h"
-#include "constants.h"
 
 namespace fits {
 

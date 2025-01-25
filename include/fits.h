@@ -2,7 +2,6 @@
 #define __FITS_H__
 
 #include "definitions.h"
-#include "constants.h"
 #include "keyword.h"
 #include "unsorted_map.hpp"
 

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "constants.h"
+#include "definitions.h"
 #include "fits.h"
 #include "utils.h"
 
