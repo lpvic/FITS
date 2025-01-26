@@ -48,9 +48,10 @@ namespace fits {
         else if (comment != "") {
             temp += comment;
         }
-        else {
+        else if (str_value != "") {
             temp += "= " + str_value;
         }
+        
         return temp;       
     }
 

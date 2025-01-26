@@ -26,6 +26,7 @@ namespace fits {
             size_type size() { return size_; }
             size_type nblocks() { return nblocks_; }
             Hdu& get_hdu(size_type n) { return hdus_[n]; }
+            void set_hdu(Hdu hdu, size_type pos) { hdus_[pos] = hdu; }
 
         private:
             size_type size_ = npos;

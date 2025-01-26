@@ -49,4 +49,21 @@ namespace fits {
 
         return true;
     }
+    bool Fits::write(std::string filename) {
+        std::fstream file(filename, std::ios_base::out | std::ios_base::binary);
+        if (!file) {
+            return false;
+        }
+
+        for (auto hdu : hdus_) {
+            for (auto header_block : hdu.header.to_blocks()) {
+                file.write(header_block.data(), header_block.size());
+            }
+
+        }
+
+        file.close();
+
+        return true;
+    }
 }
