@@ -16,7 +16,10 @@ namespace fits {
             std::string str_value;
             std::string comment;        
 
-            Keyword() {};
+            Keyword() : keyword(""), str_value(""), comment("") {};
+            Keyword(std::string keyword_, std::string str_value_, std::string comment_) : keyword(keyword_),
+                                                                                          str_value(str_value_), 
+                                                                                          comment(comment_) {};
             Keyword(const std::string line);
             Keyword(const char* buffer) : Keyword(std::string(buffer, HEADER_LINE_SIZE)) {};
             

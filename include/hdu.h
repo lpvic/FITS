@@ -15,7 +15,8 @@ namespace fits {
             Header header;
             Data data;
 
-            Hdu(Header header_, Data data_) : header(header_), data(data_) {}
+            Hdu() {};
+            Hdu(Header header_, Data data_) : header(header_), data(data_) {};
 
             std::vector<block_type>& to_blocks();
     };

@@ -29,9 +29,7 @@ namespace fits {
         size_type nblocks = 0;
         size_type nfill = 0;
 
-        std::cout << "llega   size=" << size() << std::endl;
         for (auto it = begin(); it != end(); ++it) {
-            std::cout << it->second.str().size() << " | " << HEADER_LINE_SIZE - it->second.str().size() << std::endl;
             temp_str += it->second.str().insert(it->second.str().size(), HEADER_LINE_SIZE - it->second.str().size(), ' ');
         }
         temp_str.insert(temp_str.size(), BLOCK_SIZE - (temp_str.size() % BLOCK_SIZE), ' ');
@@ -40,7 +38,11 @@ namespace fits {
         if (nfill > 0) {
             ++nblocks;
         }
-        
+
+        for (auto it = temp_str.begin(); it != temp_str.end(); it = it + BLOCK_SIZE) {
+            out.emplace_back(it, it + BLOCK_SIZE);
+        }
+
         return out;
     }
 }

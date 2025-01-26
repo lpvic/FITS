@@ -12,6 +12,7 @@
 namespace fits {
     class Header : public com::unsorted_map<std::string, Keyword> {
         public:
+            Header() {};
             Header(const std::vector<block_type>& blocks);
 
             std::vector<block_type> to_blocks();

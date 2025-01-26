@@ -15,7 +15,11 @@ int main(void) {
     fits::Hdu hdu = fits_file.get_hdu(0);
     std::cout << hdu.header.size() << std::endl;
 
-    hdu.header.to_blocks();
-    
+    auto bl = hdu.header.to_blocks();
+    std::cout << bl.size() << std::endl;
+
+    for (auto elem : bl) {
+        std::cout << elem.size() << std::endl;
+    }
     return 0;
 }
