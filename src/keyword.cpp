@@ -36,18 +36,26 @@ namespace fits {
         }
     }
 
-    std::ostream& operator<<(std::ostream& os, const Keyword& keyw) {
-        os << std::setw(8) << std::left << keyw.keyword << " ";
-        if ((keyw.str_value != "") && (keyw.comment != "")) {
-            os << keyw.str_value << " / " << keyw.comment;
+    std::string Keyword::str() const {
+        std::string temp = keyword;
+
+        if (temp.size() < KEYWORD_SIZE) {
+            temp.insert(temp.size(),KEYWORD_SIZE - temp.size(),' ');
         }
-        else if (keyw.comment != "") {
-            os << keyw.comment;
+        if ((str_value != "") && (comment != "")) {
+            temp += "= " + str_value + " / " + comment;
+        }
+        else if (comment != "") {
+            temp += comment;
         }
         else {
-            os << keyw.str_value;
+            temp += "= " + str_value;
         }
+        return temp;       
+    }
 
+    std::ostream& operator<<(std::ostream& os, const Keyword& keyw) {
+        os << keyw.str();
         return os;
     }
 }

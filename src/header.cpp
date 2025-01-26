@@ -23,7 +23,24 @@ namespace fits {
         }
     }
 
-    std::vector<block_type>& fits::Header::to_blocks() {
-        // TODO: insert return statement here
+    std::vector<block_type> fits::Header::to_blocks() {
+        std::vector<block_type> out;
+        std::string temp_str = "";
+        size_type nblocks = 0;
+        size_type nfill = 0;
+
+        std::cout << "llega   size=" << size() << std::endl;
+        for (auto it = begin(); it != end(); ++it) {
+            std::cout << it->second.str().size() << " | " << HEADER_LINE_SIZE - it->second.str().size() << std::endl;
+            temp_str += it->second.str().insert(it->second.str().size(), HEADER_LINE_SIZE - it->second.str().size(), ' ');
+        }
+        temp_str.insert(temp_str.size(), BLOCK_SIZE - (temp_str.size() % BLOCK_SIZE), ' ');
+
+        nblocks = temp_str.size() / BLOCK_SIZE;
+        if (nfill > 0) {
+            ++nblocks;
+        }
+        
+        return out;
     }
 }

@@ -12,10 +12,10 @@ int main(void) {
     std::cout << "File size: " << fits_file.size() << std::endl;
     std::cout << "Number of blocks: " << fits_file.nblocks() << std::endl;
     
-    fits::Hdu h = fits_file.get_hdu(0);
+    fits::Hdu hdu = fits_file.get_hdu(0);
+    std::cout << hdu.header.size() << std::endl;
 
-    for (auto elem : h.header)
-    std::cout << elem.second << std::endl;
-
+    hdu.header.to_blocks();
+    
     return 0;
 }

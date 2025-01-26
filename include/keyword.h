@@ -19,6 +19,8 @@ namespace fits {
             Keyword() {};
             Keyword(const std::string line);
             Keyword(const char* buffer) : Keyword(std::string(buffer, HEADER_LINE_SIZE)) {};
+            
+            std::string str() const;
 
             friend std::ostream& operator<<(std::ostream& os, const Keyword& keyw);
     };

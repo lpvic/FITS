@@ -5,12 +5,16 @@
 #include "unsorted_map.hpp"
 #include "keyword.h"
 
+#include <ranges>
+#include <sstream>
+#include <iomanip>
+
 namespace fits {
     class Header : public com::unsorted_map<std::string, Keyword> {
         public:
             Header(const std::vector<block_type>& blocks);
 
-            std::vector<block_type>& to_blocks();
+            std::vector<block_type> to_blocks();
     };
 }
 #endif
