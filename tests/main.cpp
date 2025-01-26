@@ -23,9 +23,8 @@ int main(void) {
     }
 
     std::cout << hdu.header.get("NAXIS").first->second.str_value << std::endl;
-    hdu.header.get("NAXIS").first->second.str_value = "0";
+    hdu.header.get_value("NAXIS").str_value = "0";
     std::cout << hdu.header.get("NAXIS").first->second.str_value << std::endl;
-    hdu.header.get("NAXIS1").first->second.str_value = "0";
     hdu.header.erase("NAXIS1");
     hdu.header.erase("NAXIS2");
     hdu.header.erase("NAXIS3");
