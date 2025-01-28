@@ -2,7 +2,7 @@
 #define __HEADER_H__
 
 #include "definitions.h"
-#include "unsorted_map.hpp"
+#include "vectormap.hpp"
 #include "keyword.h"
 
 #include <ranges>
@@ -10,7 +10,7 @@
 #include <iomanip>
 
 namespace fits {
-    class Header : public com::unsorted_map<std::string, Keyword> {
+    class Header : public com::vectormap<std::string, Keyword> {
         public:
             Header() {};
             Header(const std::vector<block_type>& blocks);
